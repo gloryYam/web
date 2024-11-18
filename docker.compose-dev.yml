@@ -1,0 +1,28 @@
+services :
+  app :
+    image : chat-app:latest
+    build : .
+    ports :
+      - 8080:8080
+
+  my-db:
+    image: mariadb
+    environment:
+      MARIADB_ROOT_PASSWORD: pwd123
+      MARIADB_DATABASE: mydb  # mariadb 최초 실행 시 mydb 라는 데이터베이스를 생성해준다
+    volumes:
+      - ./maria_data:/etc/mysql/conf.d
+    ports:
+      - 3307:3306
+
+  redis :
+    image : redis:latest
+    ports:
+      - 6379:6379
+    volumes:
+      # 환경변수 처리 필요
+      - C:\_workspace\docker\test\volume\redis\data:/data
+      - C:\_workspace\docker\test\volume\redis\redis.conf:/usr/local/etc/redis/redis.conf
+    restart: always
+
+  

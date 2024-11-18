@@ -75,11 +75,16 @@ public class JwtProvider {
                 .compact();
     }
 
-
+    /*
+     * ACCESS_TOKEN 생성
+     */
     public String createAccessToken(String loginId, List<String> roles) {
         return createToken(loginId, roles, accessTokenExpiredTime);
     }
 
+    /*
+     * REFRESH_TOKEN 생성
+     */
     public String createRefreshToken(String loginId, List<String> roles) {
         return createToken(loginId, roles, refreshTokenExpiredTime);
     }

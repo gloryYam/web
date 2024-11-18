@@ -1,1 +1,12 @@
 jwt:
+spring:
+  datasource:
+    url: jdbc:mariadb://my-db:3306/mydb
+    username: root
+    password: pwd123
+    driver-class-name: org.mariadb.jdbc.Driver
+
+  data:
+    redis:
+      host: redis
+      port: 6379
