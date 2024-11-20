@@ -4,25 +4,55 @@ services :
     build : .
     ports :
       - 8080:8080
+    depends_on:
+      my-db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
 
   my-db:
     image: mariadb
+    restart: always
     environment:
-      MARIADB_ROOT_PASSWORD: pwd123
-      MARIADB_DATABASE: mydb  # mariadb 최초 실행 시 mydb 라는 데이터베이스를 생성해준다
+      - TZ="Asia/Seoul"
+      - ALLOW_EMPTY_PASSWORD=no
+      - MARIADB_ROOT_PASSWORD=pwd123
+      - MARIADB_USER=glory
+      - MARIADB_DATABASE=mydb
+      - MARIADB_PASSWORD=pwd123
     volumes:
       - ./maria_data:/etc/mysql/conf.d
     ports:
-      - 3307:3306
+      - 3306:3306
+    healthcheck:
+      test: [ "CMD", "healthcheck.sh", "--connect", "--innodb_initialized" ]
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - backend
+
 
   redis :
     image : redis:latest
+    restart: always
     ports:
       - 6379:6379
     volumes:
       # 환경변수 처리 필요
-      - C:\_workspace\docker\test\volume\redis\data:/data
-      - C:\_workspace\docker\test\volume\redis\redis.conf:/usr/local/etc/redis/redis.conf
-    restart: always
+      - /mnt/c/_workspace/docker/test/volume/redis/data:/data
+      - /mnt/c/_workspace\docker\test\volume\redis\redis.conf:/usr/local/etc/redis/redis.conf
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - backend
+
+networks:
+  backend:
 
   
