@@ -4,11 +4,15 @@ services :
     build : .
     ports :
       - 8080:8080
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
     depends_on:
       my-db:
         condition: service_healthy
       redis:
         condition: service_healthy
+    networks:
+      - backend
 
   my-db:
     image: mariadb

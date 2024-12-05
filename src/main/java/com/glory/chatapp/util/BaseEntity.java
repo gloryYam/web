@@ -1,4 +1,4 @@
-package com.glory.chatapp.model.entity;
+package com.glory.chatapp.util;
 
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
