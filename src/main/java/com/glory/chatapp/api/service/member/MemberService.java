@@ -1,11 +1,11 @@
-package com.glory.chatapp.user.service;
+package com.glory.chatapp.api.service.member;
 
 import com.glory.chatapp.exception.ErrorResponseCode;
 import com.glory.chatapp.exception.user.EmailDuplicateException;
-import com.glory.chatapp.user.model.dto.LoginServiceRequest;
-import com.glory.chatapp.user.model.dto.response.SignResponse;
-import com.glory.chatapp.user.model.entity.User;
-import com.glory.chatapp.user.repository.MemberRepository;
+import com.glory.chatapp.api.service.member.request.LoginServiceRequest;
+import com.glory.chatapp.api.service.member.response.SignResponse;
+import com.glory.chatapp.domain.member.entity.Member;
+import com.glory.chatapp.domain.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,11 +26,11 @@ public class MemberService {
         emailDuplicateCheck(request.getEmail());
 
         String encodePassword = passwordEncoder.encode(request.getPassword());
-        User user = User.of(request.getUsername(), request.getEmail(), encodePassword);
+        Member member = Member.of(request.getUsername(), request.getEmail(), encodePassword);
 
-        User saveUser = memberRepository.save(user);
+        Member saveMember = memberRepository.save(member);
 
-        return SignResponse.of(saveUser);
+        return SignResponse.of(saveMember);
     }
 
     private void emailDuplicateCheck(String email) {

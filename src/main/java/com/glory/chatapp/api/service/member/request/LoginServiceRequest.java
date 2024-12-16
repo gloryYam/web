@@ -1,4 +1,4 @@
-package com.glory.chatapp.user.model.dto;
+package com.glory.chatapp.api.service.member.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

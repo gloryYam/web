@@ -1,7 +1,7 @@
 package com.glory.chatapp.oauth;
 
 import com.glory.chatapp.util.BaseEntity;
-import com.glory.chatapp.user.model.entity.User;
+import com.glory.chatapp.domain.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -18,7 +18,7 @@ public class OauthUser extends BaseEntity {
 
     @OneToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private Member member;
 
 
 }

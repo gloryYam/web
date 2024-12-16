@@ -1,7 +1,7 @@
 # 로컬 / 도커와 환경 분리하기  DB
 spring:
   profiles:
-    active: lacal
+    active: lacal       # 기본 프로파일을 local로 설정
 
 jwt:
   secret-key: c2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQtc2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQK
