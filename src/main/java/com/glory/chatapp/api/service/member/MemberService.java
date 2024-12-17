@@ -36,7 +36,7 @@ public class MemberService {
     private void emailDuplicateCheck(String email) {
         memberRepository.findByEmail(email)
                 .ifPresent(e -> {
-                    throw new EmailDuplicateException(ErrorResponseCode.DUPLICATE_EMAIL.getMessage(), ErrorResponseCode.DUPLICATE_LOGIN);
+                    throw new EmailDuplicateException(ErrorResponseCode.DUPLICATE_EMAIL.getMessage(), ErrorResponseCode.DUPLICATE_EMAIL);
                 });
     }
 }

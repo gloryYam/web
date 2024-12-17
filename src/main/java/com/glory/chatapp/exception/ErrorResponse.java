@@ -1,8 +1,9 @@
 package com.glory.chatapp.exception;
 
 import lombok.Builder;
+import lombok.Getter;
 
-
+@Getter
 public class ErrorResponse {
 
     private int code;
