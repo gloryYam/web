@@ -2,8 +2,8 @@ package com.glory.chatapp.api.controller.member;
 
 import com.glory.chatapp.api.ApiResponse;
 import com.glory.chatapp.api.controller.member.request.LoginRequest;
-import com.glory.chatapp.api.service.member.response.SignResponse;
 import com.glory.chatapp.api.service.member.MemberService;
+import com.glory.chatapp.api.service.member.response.SignResponse;
 import jakarta.validation.Valid;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

@@ -1,16 +1,11 @@
 package com.glory.chatapp.exception.user;
 
-import com.glory.chatapp.exception.ErrorResponseCode;
-import com.glory.chatapp.exception.ExceptionBase;
+import com.glory.chatapp.exception.ErrorCode_409;
+import com.glory.chatapp.exception.custom.Custom409Exception;
 
-public class EmailDuplicateException extends ExceptionBase {
+public class EmailDuplicateException extends Custom409Exception {
 
-    public EmailDuplicateException(String errorMessage, ErrorResponseCode errorCode) {
-        super(errorMessage, errorCode);
-    }
-
-    @Override
-    public int getStatusCode() {
-        return 401;
+    public EmailDuplicateException() {
+        super(ErrorCode_409.EMAIL_DUPLICATED_CHECK);
     }
 }

@@ -1,6 +1,5 @@
 package com.glory.chatapp.api.service.member;
 
-import com.glory.chatapp.exception.ErrorResponseCode;
 import com.glory.chatapp.exception.user.EmailDuplicateException;
 import com.glory.chatapp.api.service.member.request.LoginServiceRequest;
 import com.glory.chatapp.api.service.member.response.SignResponse;
@@ -36,7 +35,7 @@ public class MemberService {
     private void emailDuplicateCheck(String email) {
         memberRepository.findByEmail(email)
                 .ifPresent(e -> {
-                    throw new EmailDuplicateException(ErrorResponseCode.DUPLICATE_EMAIL.getMessage(), ErrorResponseCode.DUPLICATE_EMAIL);
+                    throw new EmailDuplicateException();
                 });
     }
 }
