@@ -1,4 +1,4 @@
-package com.glory.chatapp.security;
+package com.glory.chatapp.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -7,12 +7,16 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 1. 유효성 검증 메서드 추가
@@ -86,9 +90,15 @@ public class JwtProvider {
      * REFRESH_TOKEN 생성
      */
     public String createRefreshToken(String loginId, List<String> roles) {
+
         return createToken(loginId, roles, refreshTokenExpiredTime);
     }
 
+    /**
+     * 토큰 검증
+     * @param token
+     * @return boolean
+     */
     public boolean validateToken(String token) {
         try {
             Jwts.parserBuilder()
@@ -102,6 +112,37 @@ public class JwtProvider {
         return false;
     }
 
+    /**
+     * Authentication 객체를 생성 후 반환
+     * @param token
+     * @return Authentication
+     */
+    public Authentication getAuthentication(String token) {
+
+        // 1. 토큰에서 클레임 추출
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(getSecretKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+
+        // 2. 클레임에서 사용자 정보 추출
+        String loginId = claims.getSubject();
+        List<String> roles = claims.get("roles", List.class);
+
+        // 3. 권한 정보 생성
+        List<SimpleGrantedAuthority> authorities = roles.stream()
+                .map(SimpleGrantedAuthority::new)
+                .toList();
+
+        return new UsernamePasswordAuthenticationToken(loginId, null, authorities);
+    }
+
+    /**
+     * 사용자의 로그인 ID 추출
+     * @param token
+     * @return String
+     */
     public String extractLoginId(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(getSecretKey())

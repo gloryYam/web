@@ -72,6 +72,6 @@ class MemberServiceTest extends IntegrationTestSupport {
 
         assertThatThrownBy(() -> memberService.signup(request))
                 .isInstanceOf(EmailDuplicateException.class)
-                .hasMessage("Duplicate email");
+                .hasMessage("중복된 이메일입니다.");
     }
 }
