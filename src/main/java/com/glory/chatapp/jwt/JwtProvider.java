@@ -1,22 +1,26 @@
 package com.glory.chatapp.jwt;
 
+import com.glory.chatapp.exception.header.MalformedHeaderException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static com.glory.chatapp.exception.ErrorCode_400.MALFORMAD_HEADER;
 
 /**
  * 1. 유효성 검증 메서드 추가
@@ -159,5 +163,19 @@ public class JwtProvider {
                 .parseClaimsJws(token)
                 .getBody()
                 .getExpiration();
+    }
+
+    public String resolverToken(HttpServletRequest request) {
+
+        String bearerToken = request.getHeader("Authorization");
+
+        log.debug("bearerToken: {}", bearerToken);
+        if(StringUtils.hasText(bearerToken)) {
+            if(bearerToken.startsWith("Bearer ") && bearerToken.length() > 7) {
+                int tokenStartIndex = bearerToken.indexOf("Bearer ");
+                return bearerToken.substring(tokenStartIndex);
+            }
+        }
+        throw new MalformedHeaderException();
     }
 }
