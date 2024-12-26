@@ -36,6 +36,11 @@ public class SecurityConfig {
 
     }
 
+    /**
+     * 수정사항없음..
+     * @return
+     */
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
