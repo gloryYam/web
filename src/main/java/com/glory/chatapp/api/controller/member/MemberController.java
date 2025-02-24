@@ -1,7 +1,7 @@
 package com.glory.chatapp.api.controller.member;
 
 import com.glory.chatapp.api.ApiResponse;
-import com.glory.chatapp.api.controller.member.request.LoginRequest;
+import com.glory.chatapp.api.controller.member.request.RegisterRequest;
 import com.glory.chatapp.api.service.member.MemberService;
 import com.glory.chatapp.api.service.member.response.SignResponse;
 import jakarta.validation.Valid;
@@ -18,9 +18,9 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    @PostMapping("/sign")
-    public ApiResponse<SignResponse> signup(@Valid @RequestBody LoginRequest loginRequest) {
-        return ApiResponse.ok(memberService.signup(loginRequest.toServiceDto()));
+    @PostMapping("/potato/register")
+    public ApiResponse<SignResponse> emailRegister(@Valid @RequestBody RegisterRequest registerRequest) {
+        return ApiResponse.ok(memberService.emailRegister(registerRequest.toServiceDto()));
     }
 
 }

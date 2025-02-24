@@ -1,14 +1,13 @@
 package com.glory.chatapp.api.service.member;
 
 import com.glory.chatapp.IntegrationTestSupport;
-import com.glory.chatapp.api.service.member.request.LoginServiceRequest;
+import com.glory.chatapp.api.service.member.request.RegisterServiceRequest;
 import com.glory.chatapp.api.service.member.response.SignResponse;
 import com.glory.chatapp.domain.member.entity.Member;
 import com.glory.chatapp.domain.member.entity.Role;
 import com.glory.chatapp.domain.repository.MemberRepository;
 import com.glory.chatapp.exception.user.EmailDuplicateException;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
 
 class MemberServiceTest extends IntegrationTestSupport {
@@ -37,17 +35,17 @@ class MemberServiceTest extends IntegrationTestSupport {
 
     @Test
     @DisplayName("회원가입")
-    void signup() {
+    void emailRegister() {
 
         // given
-        LoginServiceRequest request = LoginServiceRequest.builder()
+        RegisterServiceRequest request = RegisterServiceRequest.builder()
                 .username("test")
                 .email("test@test.com")
                 .password("test")
                 .build();
 
         //when
-        SignResponse signup = memberService.signup(request);
+        SignResponse signup = memberService.emailRegister(request);
 
         //then
         Assertions.assertThat(signup).isNotNull();
@@ -64,13 +62,13 @@ class MemberServiceTest extends IntegrationTestSupport {
         Member member = new Member("test", "test@test.com", "test", Role.USER);
         memberRepository.save(member);
 
-        LoginServiceRequest request = LoginServiceRequest.builder()
+        RegisterServiceRequest request = RegisterServiceRequest.builder()
                 .username("test")
                 .email("test@test.com")
                 .password("test")
                 .build();
 
-        assertThatThrownBy(() -> memberService.signup(request))
+        assertThatThrownBy(() -> memberService.emailRegister(request))
                 .isInstanceOf(EmailDuplicateException.class)
                 .hasMessage("중복된 이메일입니다.");
     }

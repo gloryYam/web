@@ -1,17 +1,14 @@
 package com.glory.chatapp.api.controller.member;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.glory.chatapp.ControllerTestSupport;
-import com.glory.chatapp.api.controller.member.request.LoginRequest;
+import com.glory.chatapp.api.controller.member.request.RegisterRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.springframework.http.MediaType.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -38,7 +35,7 @@ class MemberControllerTest {
     @DisplayName("신규 회원 등록")
     void createMember() throws Exception {
         // given
-        LoginRequest request = LoginRequest.builder()
+        RegisterRequest request = RegisterRequest.builder()
                 .username("testUser")
                 .email("test@test.com")
                 .password("password123")

@@ -10,9 +10,7 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import java.io.IOException;
 
-/**
- * 오늘은 좀만 놀면 안될까..?
- */
+
 public class CustomAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
     protected CustomAuthenticationFilter(RequestMatcher requiresAuthenticationRequestMatcher) {

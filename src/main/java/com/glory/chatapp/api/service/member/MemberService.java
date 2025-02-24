@@ -1,7 +1,7 @@
 package com.glory.chatapp.api.service.member;
 
 import com.glory.chatapp.exception.user.EmailDuplicateException;
-import com.glory.chatapp.api.service.member.request.LoginServiceRequest;
+import com.glory.chatapp.api.service.member.request.RegisterServiceRequest;
 import com.glory.chatapp.api.service.member.response.SignResponse;
 import com.glory.chatapp.domain.member.entity.Member;
 import com.glory.chatapp.domain.repository.MemberRepository;
@@ -19,23 +19,43 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public SignResponse signup(LoginServiceRequest request) {
+    /**
+     * 회원가입
+     * @param request
+     * @return
+     */
+    public SignResponse emailRegister(RegisterServiceRequest request) {
 
         // 중복체크
         emailDuplicateCheck(request.getEmail());
 
-        String encodePassword = passwordEncoder.encode(request.getPassword());
-        Member member = Member.of(request.getUsername(), request.getEmail(), encodePassword);
+        String encodedPassword = encodePssword(request.getPassword());
+
+        Member member = Member.of(request.getEmail(), request.getUsername(), encodedPassword, );
 
         Member saveMember = memberRepository.save(member);
 
         return SignResponse.of(saveMember);
     }
 
+    /**
+     * 중복체크 메소드
+     * @param email
+     */
     private void emailDuplicateCheck(String email) {
-        memberRepository.findByEmail(email)
-                .ifPresent(e -> {
-                    throw new EmailDuplicateException();
-                });
+        Member findMember = memberRepository.findByEmail(email);
+
+        if(findMember != null) {
+            throw new EmailDuplicateException();
+        }
+    }
+
+    /**
+     * 패스워드 인코딩
+     * @param request
+     * @return
+     */
+    private String encodePssword(String password) {
+        return passwordEncoder.encode(password);
     }
 }

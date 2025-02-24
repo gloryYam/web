@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 public enum ErrorCode_400 {
 
     EMPTY_FILE_EXCEPTION(HttpStatus.BAD_REQUEST.value(), "파일 비어있습니다."),
-    MALFORMAD_HEADER(HttpStatus.BAD_REQUEST, "잘못된 헤더입니다.");
+    MALFORMAD_HEADER(HttpStatus.BAD_REQUEST.value(), "잘못된 헤더입니다.");
 
     private final int status;
     private final String errorMessage;
