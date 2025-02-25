@@ -1,10 +1,10 @@
 package com.glory.chatapp.api.service.member;
 
-import com.glory.chatapp.exception.user.EmailDuplicateException;
 import com.glory.chatapp.api.service.member.request.RegisterServiceRequest;
 import com.glory.chatapp.api.service.member.response.SignResponse;
 import com.glory.chatapp.domain.member.entity.Member;
 import com.glory.chatapp.domain.repository.MemberRepository;
+import com.glory.chatapp.exception.user.EmailDuplicateException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -52,7 +52,6 @@ public class MemberService {
 
     /**
      * 패스워드 인코딩
-     * @param request
      * @return
      */
     private String encodePssword(String password) {

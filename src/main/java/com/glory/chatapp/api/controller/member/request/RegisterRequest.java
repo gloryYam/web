@@ -2,6 +2,7 @@ package com.glory.chatapp.api.controller.member.request;
 
 import com.glory.chatapp.api.service.member.request.RegisterServiceRequest;
 import com.glory.chatapp.domain.member.entity.RegistrationType;
+import com.glory.chatapp.exception.user.TermsNotAgreedException;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
@@ -36,9 +37,13 @@ public class RegisterRequest {
     }
 
     @Builder
-
-
     public RegisterServiceRequest toServiceDto() {
         return new RegisterServiceRequest(username, email, password, termsAgreed, emailVerified, registrationType);
+    }
+
+    public void validateTermsAgreement() {
+        if(!termsAgreed) {
+            throw new TermsNotAgreedException();
+        }
     }
 }
