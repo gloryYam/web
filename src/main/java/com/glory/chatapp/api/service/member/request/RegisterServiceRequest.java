@@ -1,6 +1,6 @@
 package com.glory.chatapp.api.service.member.request;
 
-import com.glory.chatapp.domain.member.entity.RegistrationType;
+import com.glory.chatapp.domain.member.RegistrationType;
 import lombok.Builder;
 import lombok.Getter;
 

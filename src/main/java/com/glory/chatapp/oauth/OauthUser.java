@@ -1,7 +1,7 @@
 package com.glory.chatapp.oauth;
 
 import com.glory.chatapp.util.BaseEntity;
-import com.glory.chatapp.domain.member.entity.Member;
+import com.glory.chatapp.domain.member.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
 

@@ -1,7 +1,7 @@
 package com.glory.chatapp.api.controller.member.request;
 
 import com.glory.chatapp.api.service.member.request.RegisterServiceRequest;
-import com.glory.chatapp.domain.member.entity.RegistrationType;
+import com.glory.chatapp.domain.member.RegistrationType;
 import com.glory.chatapp.exception.user.TermsNotAgreedException;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

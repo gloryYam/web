@@ -1,7 +1,7 @@
 package com.glory.chatapp.api.service.member.response;
 
-import com.glory.chatapp.domain.member.entity.Role;
-import com.glory.chatapp.domain.member.entity.Member;
+import com.glory.chatapp.domain.member.Role;
+import com.glory.chatapp.domain.member.Member;
 import lombok.Builder;
 import lombok.Getter;
 

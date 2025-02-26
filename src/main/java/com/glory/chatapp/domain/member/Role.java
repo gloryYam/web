@@ -1,4 +1,4 @@
-package com.glory.chatapp.domain.member.entity;
+package com.glory.chatapp.domain.member;
 
 import lombok.Getter;
 
