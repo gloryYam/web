@@ -10,6 +10,9 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+/**
+ * 특정 사용자가 특정 약관에 동의했는지 여부를 저장하는 엔티티
+ */
 @Entity
 @Table(name = "UserTerms")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -18,13 +21,13 @@ public class UserTerms extends BaseEntity {
     @EmbeddedId
     private UserTermsId userTermsId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("memberId")
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
-    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("termsId")
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "terms_id", nullable = false)
     private Terms terms;
 

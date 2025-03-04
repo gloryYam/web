@@ -20,9 +20,6 @@ public class MemberController {
 
     @PostMapping("/potato/register")
     public ApiResponse<SignResponse> emailRegister(@Valid @RequestBody RegisterRequest registerRequest) {
-
-
-
         return ApiResponse.ok(memberService.emailRegister(registerRequest.toServiceDto()));
     }
 

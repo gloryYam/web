@@ -21,8 +21,8 @@ public class SignResponse {
 
     public static SignResponse of(Member member) {
         return SignResponse.builder()
-                .username(member.getUsername())
-                .email(member.getEmail())
+                .username(member)
+                .email(member)
                 .role(Role.USER)
                 .build();
     }

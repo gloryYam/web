@@ -1,10 +1,15 @@
 package com.glory.chatapp.domain.member;
 
+import com.glory.chatapp.api.service.member.response.SignResponse;
+import com.glory.chatapp.domain.userTerms.UserTerms;
 import com.glory.chatapp.oauth.OauthUser;
 import com.glory.chatapp.util.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static jakarta.persistence.EnumType.STRING;
 
@@ -42,6 +47,10 @@ public class Member extends BaseEntity {
     @OneToOne(mappedBy = "member")
     private OauthUser oauthUser;
 
+    @OneToMany(mappedBy = "member")
+    private List<UserTerms> userTerms = new ArrayList<>();
+
+
     public Member(String email, String username, String password, boolean termsAgreed, boolean emailVerified, RegistrationType registrationType, Role role) {
         this.email = email;
         this.username = username;
@@ -54,5 +63,19 @@ public class Member extends BaseEntity {
 
     public static Member of(String email, String username, String encodePassword, boolean termsAgreed, boolean emailVerified, RegistrationType registrationType, Role role) {
         return new Member(email, username, encodePassword, termsAgreed, emailVerified, registrationType, role);
+    }
+
+    public boolean isAmin() {
+        return this.role == Role.ADMIN;
+    }
+
+    public SignResponse toSignResponse() {
+        Role role = this.isAmin() ? Role.ADMIN : Role.USER;
+
+        return SignResponse.builder()
+                .email(this.email)
+                .username(this.username)
+                .role(role)
+                .build();
     }
 }

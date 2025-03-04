@@ -31,11 +31,11 @@ public class MemberService {
 
         String encodedPassword = encodePssword(request.getPassword());
 
-        Member member = Member.of(request.getEmail(), request.getUsername(), encodedPassword, );
+        Member member = Member.of(request.getEmail(), request.getUsername(), encodedPassword, null, null, null);
 
         Member saveMember = memberRepository.save(member);
 
-        return SignResponse.of(saveMember);
+        return saveMember.toSignResponse();
     }
 
     /**
