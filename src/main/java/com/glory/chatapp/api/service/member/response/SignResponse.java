@@ -18,12 +18,4 @@ public class SignResponse {
         this.email = email;
         this.role = role;
     }
-
-    public static SignResponse of(Member member) {
-        return SignResponse.builder()
-                .username(member)
-                .email(member)
-                .role(Role.USER)
-                .build();
-    }
 }

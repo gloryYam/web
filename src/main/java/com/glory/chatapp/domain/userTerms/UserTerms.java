@@ -31,13 +31,17 @@ public class UserTerms extends BaseEntity {
     @JoinColumn(name = "terms_id", nullable = false)
     private Terms terms;
 
+    @Column(name = "agreed", nullable = false)
+    private boolean agreed;
+
     @Column(name = "agreed_at", nullable = false)
     private LocalDateTime agreedAt;
 
-    public UserTerms(UserTermsId userTermsId, Member member, Terms terms, LocalDateTime agreedAt) {
+    public UserTerms(UserTermsId userTermsId, Member member, Terms terms, boolean agreed, LocalDateTime agreedAt) {
         this.userTermsId = userTermsId;
         this.member = member;
         this.terms = terms;
+        this.agreed = agreed;
         this.agreedAt = agreedAt;
     }
 }
