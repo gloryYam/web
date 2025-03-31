@@ -1,5 +1,7 @@
 package com.glory.chatapp.api.controller.member.request;
 
+import lombok.Getter;
+
 /*
 {
   "terms": [
@@ -39,6 +41,10 @@ public class TermsAgreementRequest {
         this.title = title;
         this.required = required;
         this.agreed = agreed;
+    }
+
+    public Long getTermsId() {
+        return this.id;
     }
 
     public boolean isRequired() {

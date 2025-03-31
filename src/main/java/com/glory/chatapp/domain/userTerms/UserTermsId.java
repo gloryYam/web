@@ -11,15 +11,15 @@ import java.util.Objects;
 @NoArgsConstructor
 public class UserTermsId implements Serializable {
 
-    @Column(name = "user_id")
-    private Long user_id;
+    @Column(name = "member_id")
+    private Long memberId;
 
     @Column(name = "term_id")
-    private Long term_id;
+    private Long termsId;
 
-    public UserTermsId(Long user_id, Long term_id) {
-        this.user_id = user_id;
-        this.term_id = term_id;
+    public UserTermsId(Long memberId, Long termsId) {
+        this.memberId = memberId;
+        this.termsId = termsId;
     }
 
     @Override
@@ -27,11 +27,11 @@ public class UserTermsId implements Serializable {
         if(this == obj) return true;
         if(!(obj instanceof UserTermsId)) return false;
         UserTermsId other = (UserTermsId) obj;
-        return Objects.equals(user_id, other.user_id) && Objects.equals(term_id, other.term_id);
+        return Objects.equals(memberId, other.memberId) && Objects.equals(termsId, other.termsId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(user_id, term_id);
+        return Objects.hash(memberId, termsId);
     }
 }

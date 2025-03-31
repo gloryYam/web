@@ -1,13 +1,22 @@
 package com.glory.chatapp.api.service.member;
 
+import com.glory.chatapp.api.controller.member.request.TermsAgreementRequest;
 import com.glory.chatapp.api.service.member.request.RegisterServiceRequest;
 import com.glory.chatapp.api.service.member.response.SignResponse;
 import com.glory.chatapp.domain.member.Member;
+import com.glory.chatapp.domain.userTerms.UserTerms;
+import com.glory.chatapp.domain.userTerms.UserTermsId;
 import com.glory.chatapp.repository.MemberRepository;
 import com.glory.chatapp.exception.user.EmailDuplicateException;
+import com.glory.chatapp.repository.terms.TermsRepository;
+import com.glory.chatapp.repository.userTemrs.UserTermsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 컨트롤러에서 ApiResponse<T> 받기
@@ -17,6 +26,8 @@ import org.springframework.stereotype.Service;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final UserTermsRepository userTermsRepository;
+    private final TermsRepository termsRepository;
     private final PasswordEncoder passwordEncoder;
 
     /**
@@ -26,16 +37,40 @@ public class MemberService {
      */
     public SignResponse emailRegister(RegisterServiceRequest request) {
 
-        // 중복체크
-        emailDuplicateCheck(request.getEmail());
+        emailDuplicateCheck(request.getMemberId());                // 중복체크
 
         String encodedPassword = encodePssword(request.getPassword());
-
-        Member member = Member.of(request.getEmail(), request.getUsername(), encodedPassword, null, null, null);
+        Member member = Member.of(request.getMemberId(), request.getUsername(), encodedPassword, null, null);
 
         Member saveMember = memberRepository.save(member);
 
+        saveUserTerms(member, request.getTermsAgreed());        // 약관 동의 저장
+
         return saveMember.toSignResponse();
+    }
+
+
+    /**
+     * 약관 동의 저장하기
+     * @param member
+     * @param agreements
+     */
+    private void  saveUserTerms(Member member, List<TermsAgreementRequest> agreements) {
+        if(agreements.isEmpty() || agreements == null) {
+            throw new IllegalArgumentException("약관 동의 정보가 없습니다.");
+        }
+
+        List<UserTerms> userTermsList = agreements.stream()
+                .map(agreement -> new UserTerms(
+                        new UserTermsId(member.getMemberId(), agreement.getTermsId()),
+                        member,
+                        termsRepository.findById(agreement.getTermsId()).orElseThrow(),
+                        agreement.isAgreed(),
+                        LocalDateTime.now()
+                ))
+                .collect(Collectors.toList());
+
+        userTermsRepository.saveAll(userTermsList);
     }
 
     /**
@@ -43,12 +78,13 @@ public class MemberService {
      * @param email
      */
     private void emailDuplicateCheck(String email) {
-        Member findMember = memberRepository.findByEmail(email);
+        Member findMember = memberRepository.findByMemberId(email);
 
         if(findMember != null) {
             throw new EmailDuplicateException();
         }
     }
+
 
     /**
      * 패스워드 인코딩

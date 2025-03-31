@@ -12,23 +12,20 @@ public class RegisterServiceRequest {
 
     private String username;
 
-    private String email;
+    private String memberId;
 
     private String password;
 
     private List<TermsAgreementRequest> termsAgreed;
 
-    private boolean emailVerified = false;
-
     private RegistrationType registrationType;
 
     @Builder
-    public RegisterServiceRequest(String username, String email, String password, List<TermsAgreementRequest> termsAgreed, boolean emailVerified, RegistrationType registrationType) {
+    public RegisterServiceRequest(String username, String memberId, String password, List<TermsAgreementRequest> termsAgreed, RegistrationType registrationType) {
         this.username = username;
-        this.email = email;
+        this.memberId = memberId;
         this.password = password;
         this.termsAgreed = termsAgreed;
-        this.emailVerified = emailVerified;
         this.registrationType = registrationType;
     }
 }

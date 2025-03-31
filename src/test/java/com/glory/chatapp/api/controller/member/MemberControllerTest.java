@@ -37,7 +37,6 @@ class MemberControllerTest {
         // given
         RegisterRequest request = RegisterRequest.builder()
                 .username("testUser")
-                .email("test@test.com")
                 .password("password123")
                 .build();
 
