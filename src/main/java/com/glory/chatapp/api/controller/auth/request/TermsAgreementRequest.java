@@ -1,6 +1,4 @@
-package com.glory.chatapp.api.controller.member.request;
-
-import lombok.Getter;
+package com.glory.chatapp.api.controller.auth.request;
 
 /*
 {

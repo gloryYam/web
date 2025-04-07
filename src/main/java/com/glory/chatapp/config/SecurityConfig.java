@@ -1,4 +1,4 @@
-package com.glory.chatapp.config.security;
+package com.glory.chatapp.config;
 
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;

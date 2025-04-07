@@ -63,9 +63,9 @@ public class JwtProvider {
     /**
      * Token 생성 메소드
      *
-     * @param String       loginId
-     * @param List<String> roles
-     * @param long         expiredTime
+     * @param loginId
+     * @param roles
+     * @param expiredTime
      * @return Jwt.builder()..
      */
     public String createToken(String loginId, List<String> roles, long expiredTime) {
@@ -172,8 +172,8 @@ public class JwtProvider {
         log.debug("bearerToken: {}", bearerToken);
         if(StringUtils.hasText(bearerToken)) {
             if(bearerToken.startsWith("Bearer ") && bearerToken.length() > 7) {
-                int tokenStartIndex = bearerToken.indexOf("Bearer ");
-                return bearerToken.substring(tokenStartIndex);
+                int tokenStartIndex = bearerToken.lastIndexOf("Bearer ");
+                return bearerToken.substring(tokenStartIndex + 7);
             }
         }
         throw new MalformedHeaderException();

@@ -1,15 +1,15 @@
 package com.glory.chatapp;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.glory.chatapp.api.controller.member.MemberController;
-import com.glory.chatapp.api.service.member.MemberService;
+import com.glory.chatapp.api.controller.auth.AuthController;
+import com.glory.chatapp.api.service.Auth.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(controllers = {
-        MemberController.class
+        AuthController.class
 })
 public abstract class ControllerTestSupport {
 

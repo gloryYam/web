@@ -1,8 +1,9 @@
-package com.glory.chatapp.api.service.member;
+package com.glory.chatapp.api.service.Auth;
 
-import com.glory.chatapp.api.controller.member.request.TermsAgreementRequest;
-import com.glory.chatapp.api.service.member.request.RegisterServiceRequest;
-import com.glory.chatapp.api.service.member.response.SignResponse;
+import com.glory.chatapp.api.controller.auth.request.TermsAgreementRequest;
+import com.glory.chatapp.api.service.Auth.request.LoginServiceRequest;
+import com.glory.chatapp.api.service.Auth.request.RegisterServiceRequest;
+import com.glory.chatapp.api.service.Auth.response.SignResponse;
 import com.glory.chatapp.domain.member.Member;
 import com.glory.chatapp.domain.userTerms.UserTerms;
 import com.glory.chatapp.domain.userTerms.UserTermsId;
@@ -40,7 +41,7 @@ public class MemberService {
         emailDuplicateCheck(request.getMemberId());                // 중복체크
 
         String encodedPassword = encodePssword(request.getPassword());
-        Member member = Member.of(request.getMemberId(), request.getUsername(), encodedPassword, null, null);
+        Member member = Member.of(request.getMemberId(), request.getUsername(), encodedPassword);
 
         Member saveMember = memberRepository.save(member);
 

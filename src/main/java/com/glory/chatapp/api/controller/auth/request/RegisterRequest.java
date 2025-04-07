@@ -1,6 +1,6 @@
-package com.glory.chatapp.api.controller.member.request;
+package com.glory.chatapp.api.controller.auth.request;
 
-import com.glory.chatapp.api.service.member.request.RegisterServiceRequest;
+import com.glory.chatapp.api.service.Auth.request.RegisterServiceRequest;
 import com.glory.chatapp.domain.member.RegistrationType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

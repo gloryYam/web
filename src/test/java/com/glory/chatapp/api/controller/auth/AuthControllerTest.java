@@ -1,7 +1,7 @@
-package com.glory.chatapp.api.controller.member;
+package com.glory.chatapp.api.controller.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.glory.chatapp.api.controller.member.request.RegisterRequest;
+import com.glory.chatapp.api.controller.auth.request.RegisterRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @SpringBootTest
 @AutoConfigureMockMvc
-class MemberControllerTest {
+class AuthControllerTest {
 
     @Autowired
     protected MockMvc mockMvc;

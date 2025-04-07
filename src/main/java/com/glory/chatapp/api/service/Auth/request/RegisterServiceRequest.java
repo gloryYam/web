@@ -1,6 +1,6 @@
-package com.glory.chatapp.api.service.member.request;
+package com.glory.chatapp.api.service.Auth.request;
 
-import com.glory.chatapp.api.controller.member.request.TermsAgreementRequest;
+import com.glory.chatapp.api.controller.auth.request.TermsAgreementRequest;
 import com.glory.chatapp.domain.member.RegistrationType;
 import lombok.Builder;
 import lombok.Getter;

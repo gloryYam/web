@@ -1,6 +1,6 @@
 package com.glory.chatapp.domain.member;
 
-import com.glory.chatapp.api.service.member.response.SignResponse;
+import com.glory.chatapp.api.service.Auth.response.SignResponse;
 import com.glory.chatapp.domain.userTerms.UserTerms;
 import com.glory.chatapp.oauth.OauthUser;
 import com.glory.chatapp.util.BaseEntity;
@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class Member extends BaseEntity {
     private String username;
 
     @Column(nullable = false, unique = true)
-    private String memberId;
+    private String userId;
 
     @Column(nullable = false)
     private String password;
@@ -43,17 +44,22 @@ public class Member extends BaseEntity {
     @OneToMany(mappedBy = "member")
     private List<UserTerms> userTerms = new ArrayList<>();
 
+    private LocalDateTime lastLoginTime;
 
-    public Member(String memberId, String username, String password, RegistrationType registrationType, Role role) {
-        this.memberId = memberId;
+    public Member(String userId, String username, String password) {
+        this.userId = userId;
         this.username = username;
         this.password = password;
-        this.registrationType = registrationType;
-        this.role = role;
     }
 
-    public static Member of(String userId, String username, String encodePassword, RegistrationType registrationType, Role role) {
-        return new Member(userId, username, encodePassword, registrationType, role);
+
+    public static Member of(String userId, String username, String encodePassword) {
+        Member member = new Member();
+        member.userId = userId;
+        member.username = username;
+        member.password = encodePassword;
+        member.role = Role.USER; // 기본값 설정해도 됨
+        return member;
     }
 
     public boolean isAmin() {
@@ -64,11 +70,16 @@ public class Member extends BaseEntity {
         Role role = this.isAmin() ? Role.ADMIN : Role.USER;
 
         return SignResponse.builder()
-                .email(this.memberId)
+                .email(this.userId)
                 .username(this.username)
                 .role(role)
                 .build();
     }
+
+    public void updateLastLoginTime(LocalDateTime loginTime) {
+        this.lastLoginTime = loginTime;
+    }
+
 
     public Long getMemberId() {
         return this.id;

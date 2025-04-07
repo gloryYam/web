@@ -1,19 +1,17 @@
-package com.glory.chatapp.api.service.member;
+package com.glory.chatapp.api.service.Auth;
 
 import com.glory.chatapp.IntegrationTestSupport;
-import com.glory.chatapp.api.controller.member.request.TermsAgreementRequest;
-import com.glory.chatapp.api.service.member.request.RegisterServiceRequest;
-import com.glory.chatapp.api.service.member.response.SignResponse;
+import com.glory.chatapp.api.controller.auth.request.TermsAgreementRequest;
+import com.glory.chatapp.api.service.Auth.request.RegisterServiceRequest;
+import com.glory.chatapp.api.service.Auth.response.SignResponse;
 import com.glory.chatapp.domain.member.Member;
 import com.glory.chatapp.domain.member.RegistrationType;
-import com.glory.chatapp.domain.member.Role;
 import com.glory.chatapp.domain.terms.Terms;
 import com.glory.chatapp.domain.terms.Type;
 import com.glory.chatapp.exception.user.EmailDuplicateException;
 import com.glory.chatapp.repository.MemberRepository;
 import com.glory.chatapp.repository.terms.TermsRepository;
 import com.glory.chatapp.repository.userTemrs.UserTermsRepository;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
