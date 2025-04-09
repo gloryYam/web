@@ -1,23 +1,22 @@
 package com.glory.chatapp.config.security;
 
+import com.glory.chatapp.domain.member.Member;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.List;
 
 public class UserPrincipal implements UserDetails {
 
     private final Long id;
-    private final String userId;
+    private final String username;
     private final String password;
     private final Collection<? extends GrantedAuthority> authorities;
 
-    public UserPrincipal(Long id, String userId, String password, Collection<? extends GrantedAuthority> authorities) {
-        this.id = id;
-        this.userId = userId;
-        this.password = password;
+    public UserPrincipal(Member member, Collection<? extends GrantedAuthority> authorities) {
+        this.id = member.getMemberId();
+        this.username = member.getUsername();
+        this.password = member.getPassword();
         this.authorities = authorities;
     }
 
@@ -33,6 +32,6 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public String getUsername() {
-        return userId;
+        return username;
     }
 }

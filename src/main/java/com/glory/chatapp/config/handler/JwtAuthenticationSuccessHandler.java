@@ -2,6 +2,7 @@ package com.glory.chatapp.config.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.glory.chatapp.config.security.UserPrincipal;
+import com.glory.chatapp.config.security.process.LoginSuccessProcessor;
 import com.glory.chatapp.jwt.JwtProvider;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ public class JwtAuthenticationSuccessHandler implements AuthenticationSuccessHan
 
     private final ObjectMapper objectMapper;
     private final JwtProvider jwtProvider;
+    private final LoginSuccessProcessor loginSuccessProcessor;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
@@ -34,8 +36,6 @@ public class JwtAuthenticationSuccessHandler implements AuthenticationSuccessHan
 
         String accessToken = jwtProvider.createAccessToken(userId, roles);
         String refreshToken = jwtProvider.createRefreshToken(userId, roles);
-
-
 
         HashMap<String, Object> body = new HashMap<>();
         body.put("accessToken", accessToken);

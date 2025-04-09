@@ -1,4 +1,4 @@
-package com.glory.chatapp.api.controller.auth;
+package com.glory.chatapp.controller.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.glory.chatapp.api.controller.auth.request.RegisterRequest;
@@ -36,7 +36,7 @@ class AuthControllerTest {
     void createMember() throws Exception {
         // given
         RegisterRequest request = RegisterRequest.builder()
-                .username("testUser")
+                .memberId("testUser")
                 .password("password123")
                 .build();
 

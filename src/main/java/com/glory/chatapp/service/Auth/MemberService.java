@@ -1,14 +1,14 @@
-package com.glory.chatapp.api.service.Auth;
+package com.glory.chatapp.service.Auth;
 
 import com.glory.chatapp.api.controller.auth.request.TermsAgreementRequest;
-import com.glory.chatapp.api.service.Auth.request.LoginServiceRequest;
-import com.glory.chatapp.api.service.Auth.request.RegisterServiceRequest;
-import com.glory.chatapp.api.service.Auth.response.SignResponse;
+import com.glory.chatapp.service.Auth.request.RegisterServiceRequest;
+import com.glory.chatapp.service.Auth.response.SignResponse;
 import com.glory.chatapp.domain.member.Member;
 import com.glory.chatapp.domain.userTerms.UserTerms;
 import com.glory.chatapp.domain.userTerms.UserTermsId;
-import com.glory.chatapp.repository.MemberRepository;
+import com.glory.chatapp.exception._404.UserNotFoundException;
 import com.glory.chatapp.exception.user.EmailDuplicateException;
+import com.glory.chatapp.repository.MemberRepository;
 import com.glory.chatapp.repository.terms.TermsRepository;
 import com.glory.chatapp.repository.userTemrs.UserTermsRepository;
 import lombok.RequiredArgsConstructor;
@@ -76,12 +76,12 @@ public class MemberService {
 
     /**
      * 중복체크 메소드
-     * @param email
+     * @param username
      */
-    private void emailDuplicateCheck(String email) {
-        Member findMember = memberRepository.findByMemberId(email);
+    private void emailDuplicateCheck(String username) {
+        Member member = memberRepository.findByUsername(username);
 
-        if(findMember != null) {
+        if(member.getUsername().equals(username)) {
             throw new EmailDuplicateException();
         }
     }

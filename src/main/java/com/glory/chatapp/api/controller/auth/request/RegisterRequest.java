@@ -1,6 +1,6 @@
 package com.glory.chatapp.api.controller.auth.request;
 
-import com.glory.chatapp.api.service.Auth.request.RegisterServiceRequest;
+import com.glory.chatapp.service.Auth.request.RegisterServiceRequest;
 import com.glory.chatapp.domain.member.RegistrationType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -14,7 +14,7 @@ import java.util.List;
 public class RegisterRequest {
 
     @NotBlank
-    private String username;
+    private String nickname;
 
     @NotBlank
     private String memberId;
@@ -27,8 +27,8 @@ public class RegisterRequest {
     private RegistrationType registrationType;
 
     @Builder
-    public RegisterRequest(String username, String memberId, String password, List<TermsAgreementRequest> termsAgreementRequestList, boolean emailVerified, RegistrationType registrationType) {
-        this.username = username;
+    public RegisterRequest(String nickname, String memberId, String password, List<TermsAgreementRequest> termsAgreementRequestList, boolean emailVerified, RegistrationType registrationType) {
+        this.nickname = nickname;
         this.memberId = memberId;
         this.password = password;
         this.termsAgreementRequestList = termsAgreementRequestList;
@@ -36,7 +36,7 @@ public class RegisterRequest {
     }
 
     public RegisterServiceRequest toServiceDto() {
-        return new RegisterServiceRequest(username, memberId, password, termsAgreementRequestList, RegistrationType.EMAIL);
+        return new RegisterServiceRequest(nickname, memberId, password, termsAgreementRequestList, RegistrationType.EMAIL);
     }
 
 }

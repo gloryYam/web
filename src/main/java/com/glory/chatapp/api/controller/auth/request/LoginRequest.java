@@ -1,6 +1,6 @@
 package com.glory.chatapp.api.controller.auth.request;
 
-import com.glory.chatapp.api.service.Auth.request.LoginServiceRequest;
+import com.glory.chatapp.service.Auth.request.LoginServiceRequest;
 import lombok.Getter;
 
 @Getter

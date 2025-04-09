@@ -1,4 +1,4 @@
-package com.glory.chatapp.api.service.Auth.response;
+package com.glory.chatapp.service.Auth.response;
 
 import com.glory.chatapp.domain.member.Role;
 import lombok.Builder;
@@ -7,14 +7,14 @@ import lombok.Getter;
 @Getter
 public class SignResponse {
 
+    private String nickName;
     private String username;
-    private String email;
     private Role role;
 
     @Builder
-    public SignResponse(String username, String email, Role role) {
+    public SignResponse(String nickName, String username, Role role) {
+        this.nickName = nickName;
         this.username = username;
-        this.email = email;
         this.role = role;
     }
 }

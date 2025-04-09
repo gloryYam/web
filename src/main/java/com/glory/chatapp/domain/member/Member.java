@@ -1,11 +1,12 @@
 package com.glory.chatapp.domain.member;
 
-import com.glory.chatapp.api.service.Auth.response.SignResponse;
+import com.glory.chatapp.service.Auth.response.SignResponse;
 import com.glory.chatapp.domain.userTerms.UserTerms;
 import com.glory.chatapp.oauth.OauthUser;
 import com.glory.chatapp.util.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
@@ -15,6 +16,7 @@ import java.util.List;
 import static jakarta.persistence.EnumType.STRING;
 
 @Entity
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member extends BaseEntity {
 
@@ -23,10 +25,10 @@ public class Member extends BaseEntity {
     private Long id;
 
     @Column(nullable = false)
-    private String username;
+    private String nickName;
 
     @Column(nullable = false, unique = true)
-    private String userId;
+    private String username;
 
     @Column(nullable = false)
     private String password;
@@ -46,16 +48,15 @@ public class Member extends BaseEntity {
 
     private LocalDateTime lastLoginTime;
 
-    public Member(String userId, String username, String password) {
-        this.userId = userId;
+    public Member(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
 
-    public static Member of(String userId, String username, String encodePassword) {
+    public static Member of(String nickName, String username, String encodePassword) {
         Member member = new Member();
-        member.userId = userId;
+        member.nickName = nickName;
         member.username = username;
         member.password = encodePassword;
         member.role = Role.USER; // 기본값 설정해도 됨
@@ -70,16 +71,15 @@ public class Member extends BaseEntity {
         Role role = this.isAmin() ? Role.ADMIN : Role.USER;
 
         return SignResponse.builder()
-                .email(this.userId)
+                .nickName(this.nickName)
                 .username(this.username)
                 .role(role)
                 .build();
     }
 
-    public void updateLastLoginTime(LocalDateTime loginTime) {
-        this.lastLoginTime = loginTime;
+    public void updateLastLoginTime() {
+        this.lastLoginTime = LocalDateTime.now();
     }
-
 
     public Long getMemberId() {
         return this.id;

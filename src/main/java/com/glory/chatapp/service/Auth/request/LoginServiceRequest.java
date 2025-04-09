@@ -1,4 +1,4 @@
-package com.glory.chatapp.api.service.Auth.request;
+package com.glory.chatapp.service.Auth.request;
 
 import lombok.Builder;
 

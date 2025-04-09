@@ -1,4 +1,4 @@
-package com.glory.chatapp.api.service.terms.response;
+package com.glory.chatapp.service.terms.response;
 
 public class TermsResponse {
 

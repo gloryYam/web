@@ -1,6 +1,5 @@
-package com.glory.chatapp.api.service.terms;
+package com.glory.chatapp.service.terms;
 
-import com.glory.chatapp.api.service.terms.response.TermsResponse;
 import org.springframework.stereotype.Service;
 
 

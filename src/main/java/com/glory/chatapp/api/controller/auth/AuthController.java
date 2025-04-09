@@ -1,14 +1,12 @@
 package com.glory.chatapp.api.controller.auth;
 
 import com.glory.chatapp.api.ApiResponse;
-import com.glory.chatapp.api.controller.auth.request.LoginRequest;
 import com.glory.chatapp.api.controller.auth.request.RegisterRequest;
-import com.glory.chatapp.api.service.Auth.MemberService;
-import com.glory.chatapp.api.service.Auth.response.SignResponse;
+import com.glory.chatapp.service.Auth.MemberService;
+import com.glory.chatapp.service.Auth.response.SignResponse;
 import jakarta.validation.Valid;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

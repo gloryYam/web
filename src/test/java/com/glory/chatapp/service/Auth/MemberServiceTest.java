@@ -1,9 +1,10 @@
-package com.glory.chatapp.api.service.Auth;
+package com.glory.chatapp.service.Auth;
 
 import com.glory.chatapp.IntegrationTestSupport;
 import com.glory.chatapp.api.controller.auth.request.TermsAgreementRequest;
-import com.glory.chatapp.api.service.Auth.request.RegisterServiceRequest;
-import com.glory.chatapp.api.service.Auth.response.SignResponse;
+import com.glory.chatapp.service.Auth.MemberService;
+import com.glory.chatapp.service.Auth.request.RegisterServiceRequest;
+import com.glory.chatapp.service.Auth.response.SignResponse;
 import com.glory.chatapp.domain.member.Member;
 import com.glory.chatapp.domain.member.RegistrationType;
 import com.glory.chatapp.domain.terms.Terms;
@@ -18,6 +19,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -71,11 +73,11 @@ class MemberServiceTest extends IntegrationTestSupport {
 
         // Then
         assertThat(response).isNotNull();
-        assertThat(response.getEmail()).isEqualTo(request.getMemberId());
+        assertThat(response.getUsername()).isEqualTo(request.getMemberId());
         assertThat(response.getUsername()).isEqualTo(request.getUsername());
 
         // 실제 DB에 데이터가 저장되었는지 확인
-        Member savedMember = memberRepository.findByMemberId(request.getMemberId());
+        Member savedMember = memberRepository.findByUsername(request.getUsername());
         assertThat(savedMember).isNotNull();
 
         // 약관 동의 내역 저장 확인
