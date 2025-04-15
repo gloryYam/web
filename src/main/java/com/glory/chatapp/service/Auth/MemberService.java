@@ -38,10 +38,10 @@ public class MemberService {
      */
     public SignResponse emailRegister(RegisterServiceRequest request) {
 
-        emailDuplicateCheck(request.getMemberId());                // 중복체크
+        emailDuplicateCheck(request.getUsernmae());                // 중복체크
 
         String encodedPassword = encodePssword(request.getPassword());
-        Member member = Member.of(request.getMemberId(), request.getUsername(), encodedPassword);
+        Member member = Member.of(request.getNickname(), request.getUsernmae(), encodedPassword);
 
         Member saveMember = memberRepository.save(member);
 
@@ -79,11 +79,8 @@ public class MemberService {
      * @param username
      */
     private void emailDuplicateCheck(String username) {
-        Member member = memberRepository.findByUsername(username);
-
-        if(member.getUsername().equals(username)) {
-            throw new EmailDuplicateException();
-        }
+        Member member = memberRepository.findByUsername(username)
+                .orElseThrow(EmailDuplicateException::new);
     }
 
 

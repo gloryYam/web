@@ -13,7 +13,8 @@ public class LoginService {
     private final MemberRepository memberRepository;
 
     public void updateLastLoginTime(String username) {
-        Member member = memberRepository.findByUsername(username);
+        Member member = memberRepository.findByUsername(username)
+                        .orElseThrow(UserNotFoundException::new);
 
         member.updateLastLoginTime();
     }

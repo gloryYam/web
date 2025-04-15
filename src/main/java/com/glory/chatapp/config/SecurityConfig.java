@@ -1,6 +1,8 @@
 package com.glory.chatapp.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.glory.chatapp.config.handler.Http401Handler;
+import com.glory.chatapp.config.handler.Http403Handler;
 import com.glory.chatapp.config.security.process.LoginSuccessProcessor;
 import com.glory.chatapp.service.Auth.MemberService;
 import com.glory.chatapp.service.security.CustomUserDetailsService;
@@ -53,6 +55,10 @@ public class SecurityConfig {
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .anyRequest().permitAll())
+                .exceptionHandling( e -> e
+                        .accessDeniedHandler(new Http403Handler(objectMapper))
+                        .authenticationEntryPoint(new Http401Handler(objectMapper))
+                )
                 .logout(logout -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/potato/auth/logout"))
                         .logoutSuccessUrl("/")

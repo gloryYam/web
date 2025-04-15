@@ -54,11 +54,11 @@ public class Member extends BaseEntity {
     }
 
 
-    public static Member of(String nickName, String username, String encodePassword) {
+    public static Member of(String nickName, String username, String password) {
         Member member = new Member();
         member.nickName = nickName;
         member.username = username;
-        member.password = encodePassword;
+        member.password = password;
         member.role = Role.USER; // 기본값 설정해도 됨
         return member;
     }

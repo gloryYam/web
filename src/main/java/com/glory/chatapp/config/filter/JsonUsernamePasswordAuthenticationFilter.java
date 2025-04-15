@@ -27,7 +27,7 @@ public class JsonUsernamePasswordAuthenticationFilter extends AbstractAuthentica
             LoginRequest loginRequest = objectMapper.readValue(request.getInputStream(), LoginRequest.class);
 
             UsernamePasswordAuthenticationToken token = UsernamePasswordAuthenticationToken.unauthenticated(
-                    loginRequest.getLoginId(),
+                    loginRequest.getUsernmae(),
                     loginRequest.getPassword()
             );
 

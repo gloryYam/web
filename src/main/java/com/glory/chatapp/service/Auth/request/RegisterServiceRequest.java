@@ -10,9 +10,9 @@ import java.util.List;
 @Getter
 public class RegisterServiceRequest {
 
-    private String username;
+    private String nickname;
 
-    private String memberId;
+    private String usernmae;
 
     private String password;
 
@@ -21,9 +21,9 @@ public class RegisterServiceRequest {
     private RegistrationType registrationType;
 
     @Builder
-    public RegisterServiceRequest(String username, String memberId, String password, List<TermsAgreementRequest> termsAgreed, RegistrationType registrationType) {
-        this.username = username;
-        this.memberId = memberId;
+    public RegisterServiceRequest(String nickname, String usernmae, String password, List<TermsAgreementRequest> termsAgreed, RegistrationType registrationType) {
+        this.nickname = nickname;
+        this.usernmae = usernmae;
         this.password = password;
         this.termsAgreed = termsAgreed;
         this.registrationType = registrationType;

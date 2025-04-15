@@ -1,0 +1,23 @@
+services :
+  my-db:
+    image: mariadb
+    restart: always
+    environment:
+      - TZ=Asia/Seoul
+      - ALLOW_EMPTY_PASSWORD=no
+      - MARIADB_ROOT_PASSWORD=pwd123
+      - MARIADB_USER=glory
+      - MARIADB_DATABASE=mydb
+      - MARIADB_PASSWORD=pwd123
+    volumes:
+      - ./maria_data:/etc/mysql/conf.d
+    ports:
+      - 3306:3306
+    healthcheck:
+      test: [ "CMD", "healthcheck.sh", "--connect", "--innodb_initialized" ]
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  

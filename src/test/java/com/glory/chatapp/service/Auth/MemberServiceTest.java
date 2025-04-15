@@ -2,9 +2,6 @@ package com.glory.chatapp.service.Auth;
 
 import com.glory.chatapp.IntegrationTestSupport;
 import com.glory.chatapp.api.controller.auth.request.TermsAgreementRequest;
-import com.glory.chatapp.service.Auth.MemberService;
-import com.glory.chatapp.service.Auth.request.RegisterServiceRequest;
-import com.glory.chatapp.service.Auth.response.SignResponse;
 import com.glory.chatapp.domain.member.Member;
 import com.glory.chatapp.domain.member.RegistrationType;
 import com.glory.chatapp.domain.terms.Terms;
@@ -13,6 +10,8 @@ import com.glory.chatapp.exception.user.EmailDuplicateException;
 import com.glory.chatapp.repository.MemberRepository;
 import com.glory.chatapp.repository.terms.TermsRepository;
 import com.glory.chatapp.repository.userTemrs.UserTermsRepository;
+import com.glory.chatapp.service.Auth.request.RegisterServiceRequest;
+import com.glory.chatapp.service.Auth.response.SignResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -57,10 +56,44 @@ class MemberServiceTest extends IntegrationTestSupport {
         );
         termsRepository.saveAll(termsList);
 
-        RegisterServiceRequest request = RegisterServiceRequest.builder()
-                .username("testUser")
-                .memberId("test@example")
-                .password("password123")
+        RegisterServiceRequest request = getRegisterServiceRequest("글로리", "test", "1234");
+
+        SignResponse response = memberService.emailRegister(request);
+
+        // Then
+        assertThat(response).isNotNull();
+        assertThat(response.getNickName()).isEqualTo(request.getNickname());
+        assertThat(response.getUsername()).isEqualTo(request.getUsernmae());
+
+        // 실제 DB에 데이터가 저장되었는지 확인
+        Optional<Member> savedMember = memberRepository.findByUsername(request.getUsernmae());
+        assertThat(savedMember).isNotNull();
+
+        // 약관 동의 내역 저장 확인
+        long count = userTermsRepository.count();
+        assertThat(count).isEqualTo(3);
+    }
+
+
+    @Test
+    @DisplayName("회원가입 실패 - 아이디 중복 예외")
+    void testEmailRegisterDuplicateEmail() {
+
+        Member member = Member.of("글로리", "test", "1234");
+        memberRepository.save(member);
+
+        RegisterServiceRequest request = getRegisterServiceRequest("글로리", "test", "1234");
+
+        // When & Then: 같은 이메일로 가입 시 예외 발생해야 함
+        assertThatThrownBy(() -> memberService.emailRegister(request))
+                .isInstanceOf(EmailDuplicateException.class);
+    }
+
+    private RegisterServiceRequest getRegisterServiceRequest(String nickname, String username, String password) {
+        return RegisterServiceRequest.builder()
+                .nickname(nickname)
+                .usernmae(username)
+                .password(password)
                 .termsAgreed(List.of(
                         new TermsAgreementRequest(1L, "PRIVACY_POLICY", "서비스 이용 약관", true, true),   // 필수 약관 동의
                         new TermsAgreementRequest(2L, "PRIVACY_POLICY", "개인정보 처리방침", true, true),   // 필수 약관 동의
@@ -69,30 +102,5 @@ class MemberServiceTest extends IntegrationTestSupport {
                 .registrationType(RegistrationType.EMAIL)
                 .build();
 
-        SignResponse response = memberService.emailRegister(request);
-
-        // Then
-        assertThat(response).isNotNull();
-        assertThat(response.getUsername()).isEqualTo(request.getMemberId());
-        assertThat(response.getUsername()).isEqualTo(request.getUsername());
-
-        // 실제 DB에 데이터가 저장되었는지 확인
-        Member savedMember = memberRepository.findByUsername(request.getUsername());
-        assertThat(savedMember).isNotNull();
-
-        // 약관 동의 내역 저장 확인
-        long count = userTermsRepository.count();
-        assertThat(count).isEqualTo(3);
-    }
-
-    @Test
-    @DisplayName("회원가입 실패 - 중복 이메일 예외")
-    void testEmailRegisterDuplicateEmail() {
-        // Given: 이미 가입된 사용자 추가
-        memberService.emailRegister(request);
-
-        // When & Then: 같은 이메일로 가입 시 예외 발생해야 함
-        assertThatThrownBy(() -> memberService.emailRegister(request))
-                .isInstanceOf(EmailDuplicateException.class);
     }
 }

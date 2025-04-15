@@ -1,6 +1,5 @@
-package com.glory.chatapp.exception.response;
+package com.glory.chatapp.exception;
 
-import com.glory.chatapp.exception.CustomException;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +25,6 @@ public class ErrorResponse {
             .body(ErrorResponse.builder()
                 .code(e.getErrorCode())
                 .message(e.getMessage())
-                .status(e.getStatus())
                 .build());
     }
 }

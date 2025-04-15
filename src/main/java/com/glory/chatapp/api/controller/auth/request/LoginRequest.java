@@ -6,17 +6,17 @@ import lombok.Getter;
 @Getter
 public class LoginRequest {
 
-    private String loginId;
+    private String usernmae;
     private String password;
 
     public LoginRequest(String loginId, String password) {
-        this.loginId = loginId;
+        this.usernmae = loginId;
         this.password = password;
     }
 
     public LoginServiceRequest toLoginServiceRequest() {
         return LoginServiceRequest.builder()
-                .loginId(loginId)
+                .loginId(usernmae)
                 .password(password)
                 .build();
     }

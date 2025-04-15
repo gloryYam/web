@@ -1,8 +1,9 @@
 package com.glory.chatapp.api.exception;
 
 import com.glory.chatapp.api.ApiResponse;
+import com.glory.chatapp.exception.custom.Custom401Exception;
 import com.glory.chatapp.exception.custom.Custom409Exception;
-import com.glory.chatapp.exception.response.ErrorResponse;
+import com.glory.chatapp.exception.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
@@ -19,6 +20,12 @@ public class ApiControllerAdvice {
         return ApiResponse.of(
                 HttpStatus.BAD_REQUEST,
                 e.getBindingResult().getAllErrors().get(0).getDefaultMessage(), null);
+    }
+
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(Custom401Exception.class)
+    public ResponseEntity<ErrorResponse> custom401Exception(Custom401Exception e) {
+        return ErrorResponse.error(e);
     }
 
     @ExceptionHandler(Custom409Exception.class)
