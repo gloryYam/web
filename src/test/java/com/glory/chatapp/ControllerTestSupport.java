@@ -1,7 +1,7 @@
 package com.glory.chatapp;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.glory.chatapp.api.controller.auth.AuthController;
+import com.glory.chatapp.controller.auth.AuthController;
 import com.glory.chatapp.service.Auth.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

@@ -1,4 +1,4 @@
-package com.glory.chatapp.api;
+package com.glory.chatapp.controller;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

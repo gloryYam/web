@@ -1,9 +1,8 @@
-package com.glory.chatapp.api.exception;
+package com.glory.chatapp.exception;
 
-import com.glory.chatapp.api.ApiResponse;
+import com.glory.chatapp.controller.ApiResponse;
 import com.glory.chatapp.exception.custom.Custom401Exception;
 import com.glory.chatapp.exception.custom.Custom409Exception;
-import com.glory.chatapp.exception.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;

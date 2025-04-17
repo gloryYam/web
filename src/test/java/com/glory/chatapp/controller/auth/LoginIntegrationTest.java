@@ -2,7 +2,7 @@ package com.glory.chatapp.controller.auth;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.glory.chatapp.api.controller.auth.request.LoginRequest;
+import com.glory.chatapp.controller.auth.request.LoginRequest;
 import com.glory.chatapp.domain.member.Member;
 import com.glory.chatapp.repository.MemberRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,13 +14,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-
-import java.util.HashMap;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 

@@ -1,7 +1,7 @@
 package com.glory.chatapp.controller.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.glory.chatapp.api.controller.auth.request.RegisterRequest;
+import com.glory.chatapp.controller.auth.request.RegisterRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

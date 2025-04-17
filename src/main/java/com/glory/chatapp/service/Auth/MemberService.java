@@ -1,12 +1,11 @@
 package com.glory.chatapp.service.Auth;
 
-import com.glory.chatapp.api.controller.auth.request.TermsAgreementRequest;
+import com.glory.chatapp.controller.auth.request.TermsAgreementRequest;
 import com.glory.chatapp.service.Auth.request.RegisterServiceRequest;
 import com.glory.chatapp.service.Auth.response.SignResponse;
 import com.glory.chatapp.domain.member.Member;
 import com.glory.chatapp.domain.userTerms.UserTerms;
 import com.glory.chatapp.domain.userTerms.UserTermsId;
-import com.glory.chatapp.exception._404.UserNotFoundException;
 import com.glory.chatapp.exception.user.EmailDuplicateException;
 import com.glory.chatapp.repository.MemberRepository;
 import com.glory.chatapp.repository.terms.TermsRepository;

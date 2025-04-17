@@ -1,7 +1,7 @@
-package com.glory.chatapp.api.controller.auth;
+package com.glory.chatapp.controller.auth;
 
-import com.glory.chatapp.api.ApiResponse;
-import com.glory.chatapp.api.controller.auth.request.RegisterRequest;
+import com.glory.chatapp.controller.ApiResponse;
+import com.glory.chatapp.controller.auth.request.RegisterRequest;
 import com.glory.chatapp.service.Auth.MemberService;
 import com.glory.chatapp.service.Auth.response.SignResponse;
 import jakarta.validation.Valid;

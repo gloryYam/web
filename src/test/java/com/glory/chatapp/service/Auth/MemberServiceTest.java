@@ -1,7 +1,7 @@
 package com.glory.chatapp.service.Auth;
 
 import com.glory.chatapp.IntegrationTestSupport;
-import com.glory.chatapp.api.controller.auth.request.TermsAgreementRequest;
+import com.glory.chatapp.controller.auth.request.TermsAgreementRequest;
 import com.glory.chatapp.domain.member.Member;
 import com.glory.chatapp.domain.member.RegistrationType;
 import com.glory.chatapp.domain.terms.Terms;

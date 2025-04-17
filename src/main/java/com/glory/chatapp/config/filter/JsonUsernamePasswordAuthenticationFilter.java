@@ -1,7 +1,7 @@
 package com.glory.chatapp.config.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.glory.chatapp.api.controller.auth.request.LoginRequest;
+import com.glory.chatapp.controller.auth.request.LoginRequest;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

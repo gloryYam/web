@@ -1,4 +1,4 @@
-package com.glory.chatapp.api.controller.auth.request;
+package com.glory.chatapp.controller.auth.request;
 
 /*
 {
