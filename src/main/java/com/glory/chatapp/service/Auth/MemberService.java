@@ -46,7 +46,7 @@ public class MemberService {
 
         saveUserTerms(member, request.getTermsAgreed());        // 약관 동의 저장
 
-        return saveMember.toSignResponse();
+        return SignResponse.of(saveMember);
     }
 
 

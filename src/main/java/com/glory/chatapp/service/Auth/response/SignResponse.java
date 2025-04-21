@@ -1,5 +1,6 @@
 package com.glory.chatapp.service.Auth.response;
 
+import com.glory.chatapp.domain.member.Member;
 import com.glory.chatapp.domain.member.Role;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,5 +17,9 @@ public class SignResponse {
         this.nickName = nickName;
         this.username = username;
         this.role = role;
+    }
+
+    public static SignResponse of(Member member) {
+        return new SignResponse(member.getNickName(), member.getUsername(), member.getRole());
     }
 }

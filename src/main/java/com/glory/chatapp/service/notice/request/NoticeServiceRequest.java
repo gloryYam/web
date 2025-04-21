@@ -1,5 +1,8 @@
 package com.glory.chatapp.service.notice.request;
 
+import lombok.Getter;
+
+@Getter
 public class NoticeServiceRequest {
 
     private String title;
@@ -16,4 +19,6 @@ public class NoticeServiceRequest {
         this.administratorName = administratorName;
         this.fixedTop = fixedTop;
     }
+
+
 }
